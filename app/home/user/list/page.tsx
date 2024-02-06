@@ -4,6 +4,22 @@ import prisma from "@/app/utils/db";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 
+interface MovieMovieType {
+  Movie: {
+    title: string;
+    age: number;
+    duration: number;
+    imageString: string;
+    overview: string;
+    release: number;
+    id: number;
+    WatchLists: {
+      id: string;
+    }[];
+    youtubeString: string;
+  };
+}
+
 async function getData(userId: string) {
   const data = await prisma.watchList.findMany({
     where: {
@@ -38,7 +54,7 @@ export default async function Watchlist() {
         Your watchlist
       </h1>
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
-        {data.map((movie) => (
+        {data.map((movie: MovieMovieType) => (
           <div key={movie.Movie?.id} className="relative h-60">
             <Image
               src={movie.Movie?.imageString as string}

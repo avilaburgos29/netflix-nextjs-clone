@@ -4,6 +4,20 @@ import { MovieCard } from "./MovieCard";
 import { getServerSession } from "next-auth";
 import { authOptions } from "../utils/auth";
 
+interface MovieType {
+  id: number;
+  overview: string;
+  title: string;
+  WatchLists: {
+    id: string;
+  }[];
+  imageString: string;
+  youtubeString: string;
+  age: number;
+  release: number;
+  duration: number;
+}
+
 async function getData(userId: string) {
   const data = await prisma.movie.findMany({
     select: {
@@ -36,7 +50,7 @@ export default async function RecentlyAdded() {
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 mt-8 gap-6">
-      {data.map((movie) => (
+      {data.map((movie: MovieType) => (
         <div key={movie.id} className="relative h-48">
           <Image
             src={movie.imageString}

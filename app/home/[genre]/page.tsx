@@ -4,6 +4,20 @@ import prisma from "@/app/utils/db";
 import { getServerSession } from "next-auth";
 import Image from "next/image";
 
+interface MovieType {
+  id: number;
+  overview: string;
+  title: string;
+  WatchLists: {
+    id: string;
+  }[];
+  imageString: string;
+  youtubeString: string;
+  age: number;
+  release: number;
+  duration: number;
+}
+
 async function getData(category: string, userId: string) {
   switch (category) {
     case "shows": {
@@ -93,7 +107,7 @@ export default async function CategoryPage({
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 px-5 sm:px-0 mt-10 gap-6">
-      {data.map((movie) => (
+      {data.map((movie: MovieType) => (
         <div key={movie.id} className="relative h-60">
           <Image
             src={movie.imageString}

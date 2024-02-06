@@ -34,9 +34,9 @@ export function MovieCard({
   const pathName = usePathname();
   return (
     <>
-      <button onClick={() => setOpen(true)} className="-mt-14">
+      <Button onClick={() => setOpen(true)} className="-mt-14">
         <PlayCircle className="h-20 w-20" />
-      </button>
+      </Button>
 
       <div className="right-5 top-5 absolute z-10">
         {watchList ? (
